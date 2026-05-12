@@ -8,24 +8,24 @@ export class CreateUsuarioDto {
 
     @IsString()
     @IsNotEmpty()
-    nombre?: string;
+    nombre: string;
 
     @IsString()
     @IsNotEmpty()
-    apellido?: string;
+    apellido: string;
 
     @IsString()
     @IsNotEmpty()
-    correo?: string;
+    correo: string;
 
     @IsString()
     @IsNotEmpty()
-    @MaxLength(6)
-    password?: string;
+    
+    password: string;
 
     @IsString()
     @IsNotEmpty()
     @IsEnum(Rol)
-    rol?: Rol;
+    rol: Rol;
 
 }
