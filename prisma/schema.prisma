@@ -29,3 +29,63 @@ model Usuario{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// 
+model Producto {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  descripcion String?
+  precio      Decimal  @db.Decimal(10, 2)
+  disponible  Boolean  @default(true)
+  creadoEn    DateTime @default(now())
+
+  itemsCarrito ItemCarrito[]
+  itemsVenta   ItemVenta[]
+}
+
+model Carrito {
+  id       Int           @id @default(autoincrement())
+  sesionId String        @unique
+  creadoEn DateTime      @default(now())
+  items    ItemCarrito[]
+}
+
+model ItemCarrito {
+  id         Int      @id @default(autoincrement())
+  carritoId  Int
+  productoId Int
+  cantidad   Int      @default(1)
+
+  carrito  Carrito  @relation(fields: [carritoId], references: [id], onDelete: Cascade)
+  producto Producto @relation(fields: [productoId], references: [id])
+
+  @@unique([carritoId, productoId])
+}
+
+model Venta {
+  id       Int         @id @default(autoincrement())
+  subtotal Decimal     @db.Decimal(10, 2)
+  impuesto Decimal     @db.Decimal(10, 2)
+  total    Decimal     @db.Decimal(10, 2)
+  estado   EstadoVenta @default(PENDIENTE)
+  creadoEn DateTime    @default(now())
+
+  items ItemVenta[]
+}
+
+model ItemVenta {
+  id         Int     @id @default(autoincrement())
+  ventaId    Int
+  productoId Int
+  cantidad   Int
+  precioUnit Decimal @db.Decimal(10, 2)
+
+  venta    Venta    @relation(fields: [ventaId], references: [id])
+  producto Producto @relation(fields: [productoId], references: [id])
+}
+
+enum EstadoVenta {
+  PENDIENTE
+  PAGADA
+  CANCELADA
+}
