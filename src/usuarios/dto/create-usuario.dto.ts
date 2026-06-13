@@ -1,12 +1,11 @@
-import { IsEnum, IsNotEmpty, IsString, MaxLength } from "class-validator";
+import { IsEnum, IsNotEmpty, IsString } from "class-validator";
 
 enum Rol{
     ADMIN = 'admin',
     VENDEDOR = 'vendedor',
 }
 export class CreateUsuarioDto {
-
-    @IsString()
+  @IsString()
     @IsNotEmpty()
     nombre: string;
 
