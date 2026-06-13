@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "d1a2b3c4-e5f6-7890-abcd-ef1234567890",
+		"name": "Restaurant Productos API",
+		"description": "Colección de peticiones HTTP para probar el CRUD del módulo Platos/Productos.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Plato (POST)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Lomo Saltado\",\n  \"descripcion\": \"Clasico plato peruano con lomo, tomate y papas fritas\",\n  \"precio\": 29.90\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/productos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["api", "productos"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Platos (GET)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/productos",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["api", "productos"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener Plato por ID (GET)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/productos/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["api", "productos", "1"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Plato (PATCH)",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"precio\": 34.90,\n  \"descripcion\": \"Plato peruano con lomo fino, tomate, cebolla y papas fritas\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/productos/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["api", "productos", "1"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activar Plato (PATCH)",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/productos/activar/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["api", "productos", "activar", "1"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Plato (DELETE)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/productos/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "3000",
+					"path": ["api", "productos", "1"]
+				}
+			},
+			"response": []
+		}
+	]
+}

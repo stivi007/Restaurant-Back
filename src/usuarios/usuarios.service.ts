@@ -3,11 +3,9 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { PrismaClient } from '../../generated/prisma';
 import * as bcrypt from 'bcrypt'
-import { FiltroUsuarioDto } from './dto/filtro-usuario.dto';
 
 @Injectable()
 export class UsuariosService extends PrismaClient implements OnModuleInit {
-  
   async onModuleInit() {
     await this.$connect();
   }
@@ -22,14 +20,13 @@ export class UsuariosService extends PrismaClient implements OnModuleInit {
 
   async create(createUsuarioDto: CreateUsuarioDto) {
     const { password, ...userData} = createUsuarioDto;
-    await this.validarCorreoUnico(createUsuarioDto.correo);
     const usuario = await this.usuario.create({
       data: {
         ...userData,
-        password: await bcrypt.hash(password, 10)
-      }
-    })
-    return usuario; 
+        password: await bcrypt.hash(password, 10),
+      },
+    });
+    return usuario;
   }
 
   async findAll(filtroUsuarioDto:FiltroUsuarioDto) {
