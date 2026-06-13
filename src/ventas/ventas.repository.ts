@@ -26,7 +26,7 @@ export class VentasRepository {
 
   findProductosByIds(ids: number[]) {
     return this.prisma.producto.findMany({
-      where: { id: { in: ids }, disponible: true },
+      where: { id: { in: ids }, activo: true },
     });
   }
 

@@ -52,7 +52,7 @@ export class CartService {
     const producto = await this.cartRepository.findProducto(productoId);
     if (!producto)
       throw new BadRequestException(`Producto con id ${productoId} no encontrado.`);
-    if (!producto.disponible)
+    if (!producto.activo)
       throw new BadRequestException(`Producto con id ${productoId} no está disponible.`);
   }
 }

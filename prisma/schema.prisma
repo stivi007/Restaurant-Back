@@ -38,6 +38,8 @@ model Producto {
   activo      Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  itemsCarrito ItemCarrito[]
+  itemsVenta   ItemVenta[]
 }
 
 model Cliente {
@@ -53,17 +55,17 @@ model Cliente {
 
 
 // 
-model Producto {
-  id          Int      @id @default(autoincrement())
-  nombre      String
-  descripcion String?
-  precio      Decimal  @db.Decimal(10, 2)
-  disponible  Boolean  @default(true)
-  creadoEn    DateTime @default(now())
+// model Producto {
+//   id          Int      @id @default(autoincrement())
+//   nombre      String
+//   descripcion String?
+//   precio      Decimal  @db.Decimal(10, 2)
+//   disponible  Boolean  @default(true)
+//   creadoEn    DateTime @default(now())
 
-  itemsCarrito ItemCarrito[]
-  itemsVenta   ItemVenta[]
-}
+//   itemsCarrito ItemCarrito[]
+//   itemsVenta   ItemVenta[]
+// }
 
 model Carrito {
   id       Int           @id @default(autoincrement())

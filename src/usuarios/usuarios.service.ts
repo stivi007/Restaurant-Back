@@ -3,6 +3,7 @@ import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { PrismaClient } from '../../generated/prisma';
 import * as bcrypt from 'bcrypt'
+import { FiltroUsuarioDto } from './dto/filtro-usuario.dto';
 
 @Injectable()
 export class UsuariosService extends PrismaClient implements OnModuleInit {

@@ -1,16 +1,49 @@
 -- CreateEnum
+CREATE TYPE "Rol" AS ENUM ('admin', 'vendedor');
+
+-- CreateEnum
 CREATE TYPE "EstadoVenta" AS ENUM ('PENDIENTE', 'PAGADA', 'CANCELADA');
+
+-- CreateTable
+CREATE TABLE "Usuario" (
+    "id" SERIAL NOT NULL,
+    "nombre" TEXT NOT NULL,
+    "apellido" TEXT NOT NULL,
+    "correo" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "rol" "Rol" NOT NULL,
+    "activo" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Usuario_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Producto" (
     "id" SERIAL NOT NULL,
     "nombre" TEXT NOT NULL,
     "descripcion" TEXT,
-    "precio" DECIMAL(10,2) NOT NULL,
-    "disponible" BOOLEAN NOT NULL DEFAULT true,
-    "creadoEn" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "precio" DOUBLE PRECISION NOT NULL,
+    "activo" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Producto_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Cliente" (
+    "id" SERIAL NOT NULL,
+    "nombre" TEXT NOT NULL,
+    "apellido" TEXT NOT NULL,
+    "correo" TEXT NOT NULL,
+    "telefono" TEXT,
+    "activo" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Cliente_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -54,6 +87,15 @@ CREATE TABLE "ItemVenta" (
 
     CONSTRAINT "ItemVenta_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Usuario_correo_key" ON "Usuario"("correo");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Producto_nombre_key" ON "Producto"("nombre");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Cliente_correo_key" ON "Cliente"("correo");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Carrito_sesionId_key" ON "Carrito"("sesionId");
