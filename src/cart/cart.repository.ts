@@ -51,4 +51,10 @@ export class CartRepository {
   findProducto(productoId: number) {
     return this.prisma.producto.findUnique({ where: { id: productoId } });
   }
+
+  vaciarCarrito(carritoId: number) {
+    return this.prisma.itemCarrito.deleteMany({
+      where: { carritoId },
+    });
+  }
 }
