@@ -3,6 +3,10 @@ import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class CreateClienteDto {
   @IsString()
   @IsNotEmpty()
+  ci: string;
+
+  @IsString()
+  @IsNotEmpty()
   nombre: string;
 
   @IsString()

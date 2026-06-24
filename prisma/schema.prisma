@@ -46,11 +46,14 @@ model Cliente {
   id        Int      @id @default(autoincrement())
   nombre    String
   apellido  String
+  ci        String   @unique
   correo    String   @unique
   telefono  String?
   activo    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  ventas    Venta[]
 }
 
 
@@ -87,14 +90,18 @@ model ItemCarrito {
 }
 
 model Venta {
-  id       Int         @id @default(autoincrement())
-  subtotal Decimal     @db.Decimal(10, 2)
-  impuesto Decimal     @db.Decimal(10, 2)
-  total    Decimal     @db.Decimal(10, 2)
-  estado   EstadoVenta @default(PENDIENTE)
-  creadoEn DateTime    @default(now())
+  id        Int         @id @default(autoincrement())
+  clienteId Int?                          //(venta puede ser anónima)
+  subtotal  Decimal     @db.Decimal(10, 2)
+  impuesto  Decimal     @db.Decimal(10, 2)
+  total     Decimal     @db.Decimal(10, 2)
+  estado    EstadoVenta @default(PENDIENTE)
+  creadoEn  DateTime    @default(now())
 
-  items ItemVenta[]
+  cliente     Cliente?     @relation(fields: [clienteId], references: [id])
+  items       ItemVenta[]
+  comprobante Comprobante?
+  pedido      Pedido?
 }
 
 model ItemVenta {
@@ -112,4 +119,22 @@ enum EstadoVenta {
   PENDIENTE
   PAGADA
   CANCELADA
+}
+
+model Comprobante {
+  id        Int      @id @default(autoincrement())
+  numero    String   @unique
+  emitidoEn DateTime @default(now())
+  ventaId   Int      @unique
+
+  venta     Venta    @relation(fields: [ventaId], references: [id])
+}
+
+model Pedido {
+  id           Int      @id @default(autoincrement())
+  numeroDelDia Int
+  fecha        DateTime @default(now())
+  ventaId      Int      @unique
+
+  venta        Venta    @relation(fields: [ventaId], references: [id])
 }
