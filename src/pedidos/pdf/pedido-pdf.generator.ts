@@ -14,6 +14,7 @@ interface DatosPedido {
   numeroDelDia: number;
   fecha: Date;
   venta: {
+    tipoEntrega: string;
     items: ItemPedido[];
   };
 }
@@ -34,12 +35,25 @@ export function generarPedidoPdf(data: DatosPedido): PDFKit.PDFDocument {
 }
 
 function dibujarEncabezado(doc: PDFKit.PDFDocument, data: DatosPedido): void {
+  const esLlevar = data.venta.tipoEntrega === 'LLEVAR';
+
   doc
     .fontSize(20)
     .text(`PEDIDO #${data.numeroDelDia}`, { align: 'center' })
     .moveDown(0.3)
     .fontSize(9)
     .text(formatearFecha(data.fecha), { align: 'center' })
+    .moveDown(0.5);
+
+  dibujarLinea(doc);
+
+  doc
+    .moveDown(0.3)
+    .fontSize(16)
+    .text(
+      esLlevar ? 'PARA LLEVAR' : 'PARA MESA',
+      { align: 'center' }
+    )
     .moveDown(0.5);
 
   dibujarLinea(doc);

@@ -13,8 +13,9 @@ interface ItemComprobante {
 
 interface DatosComprobante {
   numero: string;
-  emitidoEn: Date;
+  emitidoEn: Date; 
   venta: {
+    tipoEntrega: string; 
     subtotal: number | { toString(): string };
     impuesto: number | { toString(): string };
     total: number | { toString(): string };
@@ -37,11 +38,17 @@ export function generarComprobantePdf(data: DatosComprobante): PDFKit.PDFDocumen
 function dibujarEncabezado(doc: PDFKit.PDFDocument, data: DatosComprobante): void {
   doc
     .fontSize(18)
-    .text('RESTAURANTE ?', { align: 'center' })
+    .text('RESTAURANTE SOLUTECH', { align: 'center' })
     .moveDown(0.5)
     .fontSize(12)
     .text(`Comprobante: ${data.numero}`, { align: 'center' })
     .text(`Fecha: ${formatearFecha(data.emitidoEn)}`, { align: 'center' })
+    .moveDown(0.5)
+    .fontSize(11)
+    .text(
+      `Tipo de entrega: ${data.venta.tipoEntrega === 'MESA' ? 'Para mesa' : 'Para llevar'}`,
+      { align: 'center' }
+    )
     .moveDown(1);
 }
 

@@ -1,6 +1,7 @@
-import { IsArray, IsInt, IsPositive, ValidateNested, ArrayMinSize } from 'class-validator';
+import { IsArray, IsInt, IsPositive, ValidateNested, ArrayMinSize, IsEnum } from 'class-validator';
 import { Type } from 'class-transformer';
 
+import { TipoEntrega } from '../../../generated/prisma';
 export class ItemVentaDto {
   @IsInt()
   @IsPositive()
@@ -17,4 +18,9 @@ export class CreateVentaDto {
   @ValidateNested({ each: true })
   @Type(() => ItemVentaDto)
   items: ItemVentaDto[];
+
+  @IsEnum(TipoEntrega, {
+    message: 'El tipo de entrega debe ser MESA o LLEVAR.',
+  })
+  tipoEntrega: TipoEntrega;
 }
