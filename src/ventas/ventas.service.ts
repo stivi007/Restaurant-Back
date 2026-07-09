@@ -31,6 +31,7 @@ export class VentasService {
 
     return this.ventasRepository.create({
       ...totales,
+      tipoEntrega: dto.tipoEntrega,
       items: { create: itemsConPrecio },
     });
   }
@@ -65,6 +66,7 @@ export class VentasService {
 
     const venta = await this.ventasRepository.create({
       ...totales,
+      tipoEntrega: dto.tipoEntrega,
       ...(clienteId && { cliente: { connect: { id: clienteId } } }),
       items: { create: itemsConPrecio },
     });

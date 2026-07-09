@@ -69,4 +69,14 @@ export class ProductosService extends PrismaClient implements OnModuleInit {
       data: { activo: true },
     });
   }
+
+  async actualizarImagen(id: number, imagenUrl: string) {
+    const producto = await this.producto.findUnique({ where: { id } });
+    if (!producto) throw new NotFoundException(`Producto con id ${id} no encontrado.`);
+
+    return this.producto.update({
+      where: { id },
+      data: { imagenUrl },
+    });
+  }
 }

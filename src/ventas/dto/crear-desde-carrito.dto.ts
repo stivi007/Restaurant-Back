@@ -1,4 +1,5 @@
-import { IsString, IsNotEmpty, IsInt, IsPositive, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, IsInt, IsPositive, IsOptional, IsEnum } from 'class-validator';
+import { TipoEntrega } from '../../../generated/prisma';
 
 export class CrearDesdeCarritoDto {
   @IsString()
@@ -9,4 +10,9 @@ export class CrearDesdeCarritoDto {
   @IsPositive()
   @IsOptional()
   clienteId?: number;
+
+  @IsEnum(TipoEntrega, {
+    message: 'El tipo de entrega debe ser MESA o LLEVAR.',
+  })
+  tipoEntrega: TipoEntrega;
 }

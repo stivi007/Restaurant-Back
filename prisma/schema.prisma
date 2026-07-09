@@ -35,6 +35,7 @@ model Producto {
   nombre      String   @unique
   descripcion String?
   precio      Float
+  imagenUrl   String?
   activo      Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -92,6 +93,7 @@ model ItemCarrito {
 model Venta {
   id        Int         @id @default(autoincrement())
   clienteId Int?                          //(venta puede ser anónima)
+  tipoEntrega  TipoEntrega @default(MESA)
   subtotal  Decimal     @db.Decimal(10, 2)
   impuesto  Decimal     @db.Decimal(10, 2)
   total     Decimal     @db.Decimal(10, 2)
@@ -137,4 +139,9 @@ model Pedido {
   ventaId      Int      @unique
 
   venta        Venta    @relation(fields: [ventaId], references: [id])
+}
+
+enum TipoEntrega {
+  MESA
+  LLEVAR
 }
